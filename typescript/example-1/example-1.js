@@ -1,9 +1,10 @@
-class Container {
+class List {
     constructor() {
         this.storage = [];
     }
     add(item) {
-        return Boolean(this.storage.push(item));
+        this.storage.push(item);
+        return true;
     }
     remove(idx, items = 1) {
         let result = false;
@@ -14,25 +15,28 @@ class Container {
         }
         return result;
     }
-    get clear() {
+    clear() {
         this.storage.length = 0;
         return true;
     }
-    get getFirstItem() {
+    getFirstItem() {
         const FIRST_ITEM = 0;
         return this.storage[FIRST_ITEM];
     }
-    get getLastItem() {
+    getLastItem() {
         const LAST_ITEM = this.storage.length - 1;
         return this.storage[LAST_ITEM];
     }
-    get getLength() {
+    getLength() {
         return this.storage.length;
     }
-    get isEmpty() {
+    isEmpty() {
         return Boolean(!this.storage.length);
     }
 }
-const example1 = new Container();
+const example1 = new List();
 console.log(example1);
+function alertFirst(container) {
+    alert(container.getFirstItem());
+}
 //# sourceMappingURL=example-1.js.map

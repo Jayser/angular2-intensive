@@ -1,5 +1,4 @@
-interface Storage {
-    storage: any[];
+interface Container {
     add(item: any): boolean;
     remove(idx: number, items: number): boolean;
     clear(): boolean;
@@ -9,15 +8,16 @@ interface Storage {
     isEmpty(): boolean;
 }
 
-class Container {
+class List implements Container {
     private storage: any[];
 
     constructor() {
         this.storage = [];
     }
 
-    add(item: any): boolean {
-        return Boolean(this.storage.push(item));
+    add(item: any) {
+        this.storage.push(item);
+        return true;
     }
 
     remove(idx: number, items = 1): boolean {
@@ -32,30 +32,35 @@ class Container {
         return result;
     }
 
-    get clear(): boolean {
+    clear(): boolean {
         this.storage.length = 0;
         return true
     }
 
-    get getFirstItem(): any {
+    getFirstItem(): any {
         const FIRST_ITEM: number = 0;
         return this.storage[FIRST_ITEM];
     }
 
-    get getLastItem(): any {
+    getLastItem(): any {
         const LAST_ITEM: number = this.storage.length - 1;
         return this.storage[LAST_ITEM];
     }
 
-    get getLength(): number {
+    getLength(): number {
         return this.storage.length;
     }
 
-    get isEmpty(): boolean {
+    isEmpty(): boolean {
         return Boolean(!this.storage.length);
     }
 }
 
-const example1 = new Container();
+const example1 = new List();
 
 console.log(example1);
+
+
+function alertFirst(container: Container) {
+    alert(container.getFirstItem());
+}
