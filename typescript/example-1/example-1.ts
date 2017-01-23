@@ -1,35 +1,28 @@
-interface Container {
-    add(item: any): boolean;
-    remove(idx: number, items: number): boolean;
-    clear(): boolean;
-    getFirstItem(): any;
-    getLastItem(): any;
-    getLength(): number;
-    isEmpty(): boolean;
-}
+const FIRST_ITEM = 0;
+const COUNT_ITEMS = 1;
 
-class List implements Container {
-    private storage: any[];
+class Container<T> {
+    private storage: T[] = [];
 
-    constructor() {
-        this.storage = [];
+    [Symbol.iterator]() {
+        return this.storage[Symbol.iterator]();
     }
 
-    add(item: any) {
+    add(item: T) {
         this.storage.push(item);
         return true;
     }
 
-    remove(idx: number, items = 1): boolean {
-        let result: boolean = false;
-        const oldStorageLength: number = this.storage.length;
+    remove(idx: number): boolean {
+        const oldStorageLength = this.storage.length;
 
-        if (idx || idx === 0) {
-            this.storage.splice(idx, items);
-            result = oldStorageLength !== this.storage.length;
-        }
+        this.storage.splice(idx, COUNT_ITEMS);
 
-        return result;
+        return oldStorageLength !== this.storage.length;
+    }
+
+    find(query: T): number {
+        return this.storage.indexOf(query);
     }
 
     clear(): boolean {
@@ -37,17 +30,16 @@ class List implements Container {
         return true
     }
 
-    getFirstItem(): any {
-        const FIRST_ITEM: number = 0;
+    firstItem(): any {
         return this.storage[FIRST_ITEM];
     }
 
-    getLastItem(): any {
-        const LAST_ITEM: number = this.storage.length - 1;
+    lastItem(): T {
+        const LAST_ITEM = this.storage.length - 1;
         return this.storage[LAST_ITEM];
     }
 
-    getLength(): number {
+    length(): number {
         return this.storage.length;
     }
 
@@ -56,11 +48,16 @@ class List implements Container {
     }
 }
 
-const example1 = new List();
+const instance = new Container<number>();
 
-console.log(example1);
+console.log(instance.add(5));
+console.log(instance.add(10));
+console.log(instance.add(15));
+console.log(instance.length());
+console.log(instance.find(10));
+console.log(instance.remove(instance.find(10)));
+console.log(instance.length());
 
-
-function alertFirst(container: Container) {
-    alert(container.getFirstItem());
+for (const prop of instance) {
+    console.log(`prop ${ prop }`);
 }

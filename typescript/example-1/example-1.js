@@ -1,42 +1,51 @@
-class List {
+const FIRST_ITEM = 0;
+const COUNT_ITEMS = 1;
+class Container {
     constructor() {
         this.storage = [];
+    }
+    [Symbol.iterator]() {
+        return this.storage[Symbol.iterator]();
     }
     add(item) {
         this.storage.push(item);
         return true;
     }
-    remove(idx, items = 1) {
-        let result = false;
+    remove(idx) {
         const oldStorageLength = this.storage.length;
-        if (idx || idx === 0) {
-            this.storage.splice(idx, items);
-            result = oldStorageLength !== this.storage.length;
-        }
-        return result;
+        this.storage.splice(idx, COUNT_ITEMS);
+        return oldStorageLength !== this.storage.length;
+    }
+    find(query) {
+        return this.storage.indexOf(query);
     }
     clear() {
         this.storage.length = 0;
         return true;
     }
-    getFirstItem() {
-        const FIRST_ITEM = 0;
+    firstItem() {
         return this.storage[FIRST_ITEM];
     }
-    getLastItem() {
+    lastItem() {
         const LAST_ITEM = this.storage.length - 1;
         return this.storage[LAST_ITEM];
     }
-    getLength() {
+    length() {
         return this.storage.length;
     }
     isEmpty() {
         return Boolean(!this.storage.length);
     }
 }
-const example1 = new List();
-console.log(example1);
-function alertFirst(container) {
-    alert(container.getFirstItem());
+const instance = new Container();
+console.log(instance.add(5));
+console.log(instance.add(10));
+console.log(instance.add(15));
+console.log(instance.length());
+console.log(instance.find(10));
+console.log(instance.remove(instance.find(10)));
+console.log(instance.length());
+for (const prop of instance) {
+    console.log(`prop ${prop}`);
 }
 //# sourceMappingURL=example-1.js.map
