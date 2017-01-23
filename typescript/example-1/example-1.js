@@ -23,14 +23,14 @@ class Container {
         this.storage.length = 0;
         return true;
     }
-    firstItem() {
+    get first() {
         return this.storage[FIRST_ITEM];
     }
-    lastItem() {
+    get last() {
         const LAST_ITEM = this.storage.length - 1;
         return this.storage[LAST_ITEM];
     }
-    length() {
+    get length() {
         return this.storage.length;
     }
     isEmpty() {
@@ -41,10 +41,10 @@ const instance = new Container();
 console.log(instance.add(5));
 console.log(instance.add(10));
 console.log(instance.add(15));
-console.log(instance.length());
+console.log(instance.length);
 console.log(instance.find(10));
 console.log(instance.remove(instance.find(10)));
-console.log(instance.length());
+console.log(instance.length);
 for (const prop of instance) {
     console.log(`prop ${prop}`);
 }

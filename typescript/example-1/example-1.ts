@@ -30,16 +30,16 @@ class Container<T> {
         return true
     }
 
-    firstItem(): any {
+    get first(): any {
         return this.storage[FIRST_ITEM];
     }
 
-    lastItem(): T {
+    get last(): T {
         const LAST_ITEM = this.storage.length - 1;
         return this.storage[LAST_ITEM];
     }
 
-    length(): number {
+    get length(): number {
         return this.storage.length;
     }
 
@@ -53,10 +53,10 @@ const instance = new Container<number>();
 console.log(instance.add(5));
 console.log(instance.add(10));
 console.log(instance.add(15));
-console.log(instance.length());
+console.log(instance.length);
 console.log(instance.find(10));
 console.log(instance.remove(instance.find(10)));
-console.log(instance.length());
+console.log(instance.length);
 
 for (const prop of instance) {
     console.log(`prop ${ prop }`);
