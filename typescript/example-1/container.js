@@ -1,63 +1,43 @@
+"use strict";
 const FIRST_ITEM = 0;
 const COUNT_ITEMS = 1;
-
-class Container<T> {
-    private storage: T[] = [];
-
+class Container {
+    constructor() {
+        this.storage = [];
+    }
     [Symbol.iterator]() {
         return this.storage[Symbol.iterator]();
     }
-
-    add(item: T) {
+    add(item) {
         this.storage.push(item);
         return true;
     }
-
-    remove(idx: number): boolean {
+    remove(idx) {
         const oldStorageLength = this.storage.length;
-
         this.storage.splice(idx, COUNT_ITEMS);
-
         return oldStorageLength !== this.storage.length;
     }
-
-    find(query: T): number {
+    find(query) {
         return this.storage.indexOf(query);
     }
-
-    clear(): boolean {
+    clear() {
         this.storage.length = 0;
-        return true
+        return true;
     }
-
-    get first(): any {
+    get first() {
         return this.storage[FIRST_ITEM];
     }
-
-    get last(): T {
+    get last() {
         const LAST_ITEM = this.storage.length - 1;
         return this.storage[LAST_ITEM];
     }
-
-    get length(): number {
+    get length() {
         return this.storage.length;
     }
-
-    isEmpty(): boolean {
+    isEmpty() {
         return Boolean(!this.storage.length);
     }
 }
-
-const instance = new Container<number>();
-
-console.log(instance.add(5));
-console.log(instance.add(10));
-console.log(instance.add(15));
-console.log(instance.length);
-console.log(instance.find(10));
-console.log(instance.remove(instance.find(10)));
-console.log(instance.length);
-
-for (const prop of instance) {
-    console.log(`prop ${ prop }`);
-}
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = Container;
+//# sourceMappingURL=container.js.map
